@@ -137,13 +137,8 @@ func (a *ApplicationAPI) Update(ctx context.Context, req *pb.UpdateApplicationRe
 		return nil, helpers.ErrToRPCError(err)
 	}
 
-	sp, err := storage.GetServiceProfile(ctx, storage.DB(), spID, true)
-	if err != nil {
-		return nil, helpers.ErrToRPCError(err)
-	}
-
-	if sp.OrganizationID != app.OrganizationID {
-		return nil, grpc.Errorf(codes.InvalidArgument, "application and service-profile must be under the same organization")
+	if app.ServiceProfileID != spID {
+		return nil, grpc.Errorf(codes.InvalidArgument, "application is not supposed to change its service-profile")
 	}
 
 	// update the fields

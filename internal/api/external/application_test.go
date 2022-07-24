@@ -174,7 +174,7 @@ func (ts *APITestSuite) TestApplication() {
 			})
 		})
 
-		t.Run("Update with service-profile under different organization", func(t *testing.T) {
+		t.Run("Update with service-profile", func(t *testing.T) {
 			assert := require.New(t)
 
 			_, err := api.Update(context.Background(), &pb.UpdateApplicationRequest{
